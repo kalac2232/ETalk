@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">E说话</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="login_title">您好，请登陆</string>
+    <string name="input_phonenumber">请输入手机号</string>
+    <string name="input_identifycode">请输入验证码</string>
+    <string name="login_tip">第三方账号直接登陆</string>
 
 </resources>

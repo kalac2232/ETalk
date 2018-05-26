@@ -1,11 +1,15 @@
 package com.kalac.etalk.Activites;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.kalac.etalk.R;
 
 /**
- * A login screen that offers login via email/password.
+ * 登陆界面
  */
 public class LoginActivity extends BaseActivity {
 
@@ -14,7 +18,15 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        initView();
 
+    }
+
+    private void initView() {
+        View statusBar = findViewById(R.id.statusBarView);
+        //根据状态栏高度设置占位控件的高度
+        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        layoutParams.height = getStatusBarHeight();
     }
 
 

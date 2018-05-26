@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Process;
 
+import com.kalac.etalk.Utils.FontUtils;
+
 public class ETalkApplication extends Application {
     public static int getMainThreadId() {
         return mainThreadId;
@@ -28,5 +30,7 @@ public class ETalkApplication extends Application {
         context = getApplicationContext();
         handler = new Handler();
         mainThreadId = Process.myTid();
+        //全局替换字体
+        FontUtils.getInstance().replaceSystemDefaultFontFromAsset(this, "fonts/mini_yuan.ttf");
     }
 }

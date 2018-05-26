@@ -12,14 +12,15 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        //延迟一秒后进入主界面或问卷调查界面
+        //延迟一秒后进入登陆界面或问卷调查界面
         UIUtil.getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(UIUtil.getContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
+
             }
-        },5000);
+        },1000);
     }
 }
