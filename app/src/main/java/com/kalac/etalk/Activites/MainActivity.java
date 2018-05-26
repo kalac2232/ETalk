@@ -1,6 +1,5 @@
-package com.kalac.etalk.Activity;
+package com.kalac.etalk.Activites;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.kalac.etalk.R;

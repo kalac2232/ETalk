@@ -1,4 +1,4 @@
-package com.kalac.etalk.Activity;
+package com.kalac.etalk.Activites;
 
 import android.app.Activity;
 
