@@ -73,6 +73,7 @@ public class UIUtil {
     public static void runOnUIThread(Runnable runnable) {
         if (isRunOnUIThread()) {
             //已经是主线程了 直接运行
+            runnable.run();
         } else {
             //如果是子线程,借助handler让其运行在主线程
             getHandler().post(runnable);
