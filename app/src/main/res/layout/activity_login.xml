@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/bg_login" />
+        android:src="@drawable/bg_background" />
     <LinearLayout
         android:id="@+id/ll_content"
         android:layout_width="match_parent"

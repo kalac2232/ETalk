@@ -1,11 +1,16 @@
 package com.kalac.etalk.Activites;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -21,7 +26,8 @@ import java.util.ArrayList;
 
 public class QuestionnaireActivity extends BaseActivity implements View.OnClickListener {
 
-    private Button btnDone;
+    private ImageView ivRight;
+    private ImageView ivWrong;
     private Button btnExit;
     private Button btnJump;
     /**
@@ -44,6 +50,17 @@ public class QuestionnaireActivity extends BaseActivity implements View.OnClickL
     private static final int ADULT_QUESTION = 1;
     private static final int BEHAVIOR_QUESTION = 1;
     private static final int PSYCHO_QUESTION = 0;
+    private LinearLayout llSelected_adult;
+    private LinearLayout llSelected_student;
+    private LinearLayout llSelectProfession;
+    private LinearLayout llQuestion;
+    private ImageView ivProfessionIcon;
+    private TextView tvQuestion;
+    private int current_questionindex = 0;
+    enum Profession {
+        student,adult
+    }
+    private Profession selected_Profreeion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,10 +131,21 @@ public class QuestionnaireActivity extends BaseActivity implements View.OnClickL
         //根据状态栏高度设置占位控件的高度
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = getStatusBarHeight();
-        btnDone = findViewById(R.id.btn_questionnaire_done);
+        llSelectProfession = findViewById(R.id.ll_selectprofession);
+        llQuestion = findViewById(R.id.ll_question);
+        llSelected_adult = findViewById(R.id.ll_imadult);
+        llSelected_adult = findViewById(R.id.ll_imadult);
+        llSelected_student = findViewById(R.id.ll_imstudent);
+        tvQuestion = findViewById(R.id.tv_question);
+        ivRight = findViewById(R.id.iv_questionnaire_right);
+        ivWrong = findViewById(R.id.iv_questionnaire_wrong);
         btnExit = findViewById(R.id.btn_questionnaire_exit);
         btnJump = findViewById(R.id.btn_questionnaire_jump);
-        btnDone.setOnClickListener(this);
+        //显示当前选择的职业图标
+        ivProfessionIcon = findViewById(R.id.iv_current_professionicon);
+        llSelected_adult.setOnClickListener(this);
+        llSelected_student.setOnClickListener(this);
+        ivRight.setOnClickListener(this);
         btnExit.setOnClickListener(this);
         btnJump.setOnClickListener(this);
     }
@@ -125,10 +153,28 @@ public class QuestionnaireActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
-            case R.id.btn_questionnaire_done:
-                SharePreferenceUtil.putInt(UIUtil.getContext(), ConstantValue.QUESTIONNAIRE_STATUS, ConstantValue.QUESTIONNAIRE_DONE);
-                startActivity(new Intent(UIUtil.getContext(),MainActivity.class));
-                finish();
+            case R.id.ll_imadult:
+                //隐藏选择职业页，显示问题页
+                llSelectProfession.setVisibility(View.GONE);
+                llQuestion.setVisibility(View.VISIBLE);
+                Drawable drawable1 = UIUtil.getDrawable(R.drawable.ic_questionaire_adult_transparent);
+                ivProfessionIcon.setImageDrawable(drawable1);
+                selected_Profreeion = Profession.adult;
+                showQuestion();
+                break;
+            case R.id.ll_imstudent:
+                llSelectProfession.setVisibility(View.GONE);
+                llQuestion.setVisibility(View.VISIBLE);
+                Drawable drawable2 = UIUtil.getDrawable(R.drawable.ic_questionaire_student_transparent);
+                ivProfessionIcon.setImageDrawable(drawable2);
+                selected_Profreeion = Profession.student;
+                showQuestion();
+                break;
+            case R.id.iv_questionnaire_right:
+                recordScoreAndNext(true);
+                break;
+            case R.id.iv_questionnaire_wrong:
+                recordScoreAndNext(false);
                 break;
             case R.id.btn_questionnaire_exit:
                 SharePreferenceUtil.putInt(UIUtil.getContext(), ConstantValue.QUESTIONNAIRE_STATUS, ConstantValue.QUESTIONNAIRE_UNDONE);
@@ -143,6 +189,67 @@ public class QuestionnaireActivity extends BaseActivity implements View.OnClickL
                 break;
         }
     }
+
+    private void showQuestion() {
+        if (selected_Profreeion == Profession.student) {
+            tvQuestion.setText(studentList_behavior.get(current_questionindex));
+        } else {
+            tvQuestion.setText(adultList_behavior.get(current_questionindex));
+        }
+    }
+
+    /** 记录分数并下一道题
+     * @param answer 回答问题的正确性
+     */
+    private void recordScoreAndNext(boolean answer) {
+        int score = 0;
+        //当前所做题目的索引+1
+        current_questionindex++;
+        if (selected_Profreeion == Profession.student) {
+            if (current_questionindex < studentList_behavior.size()) {
+                tvQuestion.setText(studentList_behavior.get(current_questionindex));
+                score = answer? score+1 :score;
+            } else if(current_questionindex < studentList_behavior.size() + studentList_psycho.size()-1){
+                tvQuestion.setText(studentList_psycho.get(current_questionindex - studentList_behavior.size()));
+                score = answer? score+1 :score;
+            } else if (current_questionindex == studentList_behavior.size() + studentList_psycho.size() -1 ) {
+                tvQuestion.setText(studentList_psycho.get(current_questionindex - studentList_behavior.size()));
+                score = answer? score+1 :score;
+                Toast.makeText(UIUtil.getContext(),"完成所有测试题，即将进入主界面",Toast.LENGTH_SHORT).show();
+                UIUtil.getHandler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //到末尾进入主页面
+                        startActivity(new Intent(UIUtil.getContext(), MainActivity.class));
+                        finish();
+                    }
+                },1500);
+
+            }
+        } else {
+            if (current_questionindex < adultList_behavior.size()) {
+                tvQuestion.setText(adultList_behavior.get(current_questionindex));
+                score = answer? score+1 :score;
+            } else if(current_questionindex < adultList_behavior.size() + adultList_psycho.size()-1){
+                tvQuestion.setText(adultList_psycho.get(current_questionindex - adultList_behavior.size()));
+                score = answer? score+1 :score;
+            } else if (current_questionindex == adultList_behavior.size() + adultList_psycho.size() -1 ) {
+                tvQuestion.setText(adultList_psycho.get(current_questionindex - adultList_behavior.size()));
+                score = answer? score+1 :score;
+                Toast.makeText(UIUtil.getContext(),"完成所有测试题，即将进入主界面",Toast.LENGTH_SHORT).show();
+                UIUtil.getHandler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //到末尾进入主页面
+                        startActivity(new Intent(UIUtil.getContext(), MainActivity.class));
+                        finish();
+                    }
+                },1500);
+            }
+        }
+
+    }
+
     class QuestionBean{
         private String question;
         private int career_type;

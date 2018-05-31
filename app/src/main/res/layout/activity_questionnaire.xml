@@ -6,32 +6,168 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activites.QuestionnaireActivity">
+    tools:context=".Activites.QuestionnaireActivity"
+    android:background="@drawable/bg_background">
     <View
         android:id="@+id/statusBarView"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#5ccc"/>
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/ll_selectprofession"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="登陆成功"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:gravity="center"/>
+        <RelativeLayout
+            android:layout_marginTop="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/ll_imstudent"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:orientation="vertical">
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:cardElevation="8dp">
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/ic_questionaire_sutudent"/>
+                </android.support.v7.widget.CardView>
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:text="学生"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_imadult"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:orientation="vertical">
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:cardElevation="8dp">
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/ic_questionaire_adult"/>
+                </android.support.v7.widget.CardView>
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:text="成人"/>
+            </LinearLayout>
+        </RelativeLayout>
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:text="请选择身份进行答题，结束后将自动生成方案"/>
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            app:cardCornerRadius="25dp">
+            <Button
+                android:id="@+id/btn_questionnaire_jump"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:background="#0000"
+                android:textColor="#2f1212"
+                android:text="我现在不想答题,跳过"/>
+        </android.support.v7.widget.CardView>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_question"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#8fff">
         <Button
             android:id="@+id/btn_questionnaire_exit"
-            android:layout_width="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/btn_questionaire_exit"/>
+        <ImageView
+            android:id="@+id/iv_current_professionicon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_questionaire_adult_transparent"
+            android:layout_gravity="center"/>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="退出"/>
-        <Button
-            android:id="@+id/btn_questionnaire_jump"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            app:cardCornerRadius="20dp">
+            <TextView
+                android:id="@+id/tv_question"
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:textColor="#000"
+                android:textSize="19sp"
+                android:text="15.在口吃的时候会有眨眼、打响指、摆头、摸口袋里的硬币等不必要的动作"/>
+        </android.support.v7.widget.CardView>
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="跳过"/>
-        <Button
-            android:id="@+id/btn_questionnaire_done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="完成"/>
-    </RelativeLayout>
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:id="@+id/iv_questionnaire_wrong"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/btn_questionaire_wrong"
+                />
+            <ImageView
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:id="@+id/iv_questionnaire_right"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/btn_questionaire_right"/>
+        </LinearLayout>
 
+    </LinearLayout>
 </LinearLayout>
