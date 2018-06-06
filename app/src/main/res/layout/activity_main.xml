@@ -4,11 +4,12 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="#fff"
               android:orientation="vertical">
     <View
         android:id="@+id/statusBarView"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0dp"
         android:background="#5ccc"/>
     <FrameLayout
         android:id="@+id/fl_content"
@@ -20,7 +21,7 @@
     <RadioGroup
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:background="#00aeff"
+        android:background="#6DC4ED"
         android:layout_height="50dp"
         android:layout_gravity="center">
         <RadioButton

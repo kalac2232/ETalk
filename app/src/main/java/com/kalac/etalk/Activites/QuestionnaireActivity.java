@@ -178,6 +178,7 @@ public class QuestionnaireActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.btn_questionnaire_exit:
                 SharePreferenceUtil.putInt(UIUtil.getContext(), ConstantValue.QUESTIONNAIRE_STATUS, ConstantValue.QUESTIONNAIRE_UNDONE);
+                startActivity(new Intent(UIUtil.getContext(),MainActivity.class));
                 finish();
                 break;
             case R.id.btn_questionnaire_jump:

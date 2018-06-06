@@ -1,22 +1,22 @@
 package com.kalac.etalk.Activites;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 
-import com.kalac.etalk.Fragments.GroupFragment;
-import com.kalac.etalk.Fragments.MainFragment;
-import com.kalac.etalk.Fragments.MineFragment;
-import com.kalac.etalk.Fragments.TrainFragment;
-import com.kalac.etalk.Fragments.TreatmentFragment;
+import com.kalac.etalk.Fragments.MainPage.GroupFragment;
+import com.kalac.etalk.Fragments.MainPage.MainFragment;
+import com.kalac.etalk.Fragments.MainPage.MineFragment;
+import com.kalac.etalk.Fragments.MainPage.TrainFragment;
+import com.kalac.etalk.Fragments.MainPage.TreatmentFragment;
 import com.kalac.etalk.R;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends FragmentActivity implements View.OnClickListener {
     private Fragment currentFragment = null;
     private RadioButton rbMain;
     private RadioButton rbGroup;
@@ -37,10 +37,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
-        View statusBar = findViewById(R.id.statusBarView);
-        //根据状态栏高度设置占位控件的高度
-        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
-        layoutParams.height = getStatusBarHeight();
+//        View statusBar = findViewById(R.id.statusBarView);
+//        //根据状态栏高度设置占位控件的高度
+//        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+//        layoutParams.height = getStatusBarHeight();
         rbMain = findViewById(R.id.rb_main);
         rbGroup = findViewById(R.id.rb_group);
         rbTreatment = findViewById(R.id.rb_treatment);
@@ -68,7 +68,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      */
     public void showFragment(Fragment fragment) {
         //创建fragmentManager对象
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         //开启事务 创建事务对象
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         //如果之前没有添加过

@@ -4,8 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Process;
-
 import com.kalac.etalk.Utils.FontUtils;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 public class ETalkApplication extends Application {
     public static int getMainThreadId() {
@@ -32,5 +34,6 @@ public class ETalkApplication extends Application {
         mainThreadId = Process.myTid();
         //全局替换字体
         FontUtils.getInstance().replaceSystemDefaultFontFromAsset(this, "fonts/mini_yuan.ttf");
+        RongIMClient.init(this);
     }
 }

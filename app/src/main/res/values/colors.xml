@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="underLine">#ddd</color>
-    <color name="rb_textColor_selected">#FF1C94EA</color>
+    <color name="rb_textColor_selected">#028BF3</color>
     <color name="rb_textColor_unselected">#FFDCE0DF</color>
+    <color name="ViewPaperTextColor">#028BF3</color>
 </resources>

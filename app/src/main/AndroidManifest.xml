@@ -21,10 +21,25 @@
         </activity>
         <activity android:name=".Activites.LoginActivity">
         </activity>
-        <activity android:name=".Activites.MainActivity">
+        <activity
+            android:name=".Activites.MainActivity"
+            android:theme="@style/Theme.PageIndicator">
         </activity>
         <activity android:name=".Activites.QuestionnaireActivity">
         </activity>
+        <activity android:name=".Activites.SpeechActivity">
+        </activity>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.kalac.etalk.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/rc_file_path"/>
+        </provider>
+
+
     </application>
 
 </manifest>

@@ -14,8 +14,13 @@ import android.widget.Toast;
 
 import com.kalac.etalk.R;
 import com.kalac.etalk.Utils.ConstantValue;
+import com.kalac.etalk.Utils.RongCloudMethodUtil;
+import com.kalac.etalk.Utils.RongCloudUtil;
 import com.kalac.etalk.Utils.SharePreferenceUtil;
 import com.kalac.etalk.Utils.UIUtil;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 /**
  * 登陆界面
@@ -153,25 +158,49 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private static final String TAG = "LoginActivity";
+
+
     private void login() {
         boolean checkResult = checkPhoneNumber(etPhone.getText().toString());
         if (checkResult) {
             if (etIdentifyCode.getText().length() == 6) {
                 //登陆操作
-                SharePreferenceUtil.putBoolean(UIUtil.getContext(),ConstantValue.ISLOGIN,true);
-                //获取调查问卷的完成情况
-                int questionnaireStatus = SharePreferenceUtil.getInt(UIUtil.getContext(), ConstantValue.QUESTIONNAIRE_STATUS, ConstantValue.QUESTIONNAIRE_UNDONE);
-                if (questionnaireStatus != ConstantValue.QUESTIONNAIRE_DONE) {
-                    //如果不等与完成则跳问卷调查页
-                    Intent intent = new Intent(UIUtil.getContext(), QuestionnaireActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    //如果完成了问卷调查 直接跳主页
-                    Intent intent = new Intent(UIUtil.getContext(), MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+                String phone = String.valueOf(etPhone.getText().toString());
+                //获取token值
+                String token = "MimZR7hBk9F/M7MNM+QMgQEe5pwFA7hxdJPBO9xGiHoaYiiFpSgy1U+cKytdX2XR8Z9iPyLuh57h03cpuM8A8MQstPJ89e1i";
+                RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
+                    @Override
+                    public void onTokenIncorrect() {
+                        Toast.makeText(UIUtil.getContext(),"失效",Toast.LENGTH_SHORT).show();
+                        Log.i(TAG, "onTokenIncorrect: 失效");
+                    }
+
+                    @Override
+                    public void onSuccess(String userid) {
+                        Toast.makeText(UIUtil.getContext(),"登陆成功",Toast.LENGTH_SHORT).show();
+                        SharePreferenceUtil.putBoolean(UIUtil.getContext(),ConstantValue.ISLOGIN,true);
+                        //获取调查问卷的完成情况
+                        int questionnaireStatus = SharePreferenceUtil.getInt(UIUtil.getContext(), ConstantValue.QUESTIONNAIRE_STATUS, ConstantValue.QUESTIONNAIRE_UNDONE);
+                        if (questionnaireStatus != ConstantValue.QUESTIONNAIRE_DONE) {
+                            //如果不等与完成则跳问卷调查页
+                            Intent intent = new Intent(UIUtil.getContext(), QuestionnaireActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            //如果完成了问卷调查 直接跳主页
+                            Intent intent = new Intent(UIUtil.getContext(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+                        Toast.makeText(UIUtil.getContext(),"登陆失败",Toast.LENGTH_SHORT).show();
+                        Log.i(TAG, "onError: "+errorCode.getMessage());
+                    }
+                });
+
 
             } else {
                 Toast.makeText(UIUtil.getContext(),"请输入验证码",Toast.LENGTH_SHORT).show();
