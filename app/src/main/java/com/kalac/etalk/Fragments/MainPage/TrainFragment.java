@@ -54,45 +54,7 @@ public class TrainFragment extends BaseFragment {
         vpTrain.setAdapter(adapter);
         indicator.setViewPager(vpTrain);
 
-//        Button viewById = view.findViewById(R.id.bt);
-//        viewById.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                RongIMClient.getInstance().joinChatRoom("123456", 0, new RongIMClient.OperationCallback() {
-//                    @Override
-//                    public void onSuccess() {
-//                        Toast.makeText(UIUtil.getContext(),"加入聊天室成功",Toast.LENGTH_SHORT).show();
-//                        // 构造 TextMessage 实例
-//                        TextMessage myTextMessage = TextMessage.obtain("我是消息内容");
-//                        Message myMessage = Message.obtain("123456", Conversation.ConversationType.CHATROOM,myTextMessage);
-//                        RongIMClient.getInstance().sendMessage(myMessage, null, null, new IRongCallback.ISendMessageCallback() {
-//
-//                            public void onAttached(Message message) {
-//                                //消息本地数据库存储成功的回调
-//                                Log.i(TAG, "onAttached: 消息本地数据库存储成功的回调");
-//                            }
-//
-//                            @Override
-//                            public void onSuccess(Message message) {
-//                                //消息通过网络发送成功的回调
-//                                Log.i(TAG, "onSuccess: 消息通过网络发送成功的回调");
-//                            }
-//
-//                            @Override
-//                            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-//                                //消息发送失败的回调
-//                                Log.i(TAG, "onError: 消息发送失败的回调");
-//                            }
-//                        });
-//                    }
-//
-//                    @Override
-//                    public void onError(RongIMClient.ErrorCode errorCode) {
-//                        Toast.makeText(UIUtil.getContext(),"加入聊天室失败"+errorCode.getMessage(),Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//            }
-//        });
+
         return view;
     }
 

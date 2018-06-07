@@ -40,8 +40,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_marginTop="45dp"
-            android:ellipsize="middle"
-            android:maxLines="1"
+            android:singleLine="true"
             android:textColor="#999999"
             android:textSize="14sp"
             android:visibility="gone" />
