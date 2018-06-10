@@ -14,13 +14,19 @@ import android.widget.Toast;
 
 import com.kalac.etalk.Activites.SpeechActivity;
 import com.kalac.etalk.Fragments.BaseFragment;
+import com.kalac.etalk.JoinChatRoomStatusMessage;
 import com.kalac.etalk.R;
 import com.kalac.etalk.Utils.UIUtil;
 
+import java.util.List;
+
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.ChatRoomInfo;
+import io.rong.imlib.model.ChatRoomMemberInfo;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
+import io.rong.message.CommandNotificationMessage;
 import io.rong.message.TextMessage;
 
 public class SpeechFragment extends BaseFragment {
@@ -63,33 +69,31 @@ public class SpeechFragment extends BaseFragment {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(UIUtil.getContext(), SpeechActivity.class));
-                    RongIMClient.getInstance().joinChatRoom("123456", 0, new RongIMClient.OperationCallback() {
+                    final String chatRoomId = "123456";
+                    RongIMClient.getInstance().joinChatRoom(chatRoomId, -1, new RongIMClient.OperationCallback() {
                         @Override
                         public void onSuccess() {
                             Toast.makeText(UIUtil.getContext(),"加入聊天室成功",Toast.LENGTH_SHORT).show();
-                            // 构造 TextMessage 实例
-                            TextMessage myTextMessage = TextMessage.obtain("我是消息内容");
-                            Message myMessage = Message.obtain("123456", Conversation.ConversationType.CHATROOM,myTextMessage);
-                            RongIMClient.getInstance().sendMessage(myMessage, null, null, new IRongCallback.ISendMessageCallback() {
-
+                            JoinChatRoomStatusMessage message = JoinChatRoomStatusMessage.obtain("in");
+                            RongIMClient.getInstance().sendMessage(Conversation.ConversationType.CHATROOM, chatRoomId, message, null, null, new IRongCallback.ISendMessageCallback() {
+                                @Override
                                 public void onAttached(Message message) {
-                                    //消息本地数据库存储成功的回调
-                                    Log.i(TAG, "onAttached: 消息本地数据库存储成功的回调");
+                                    // 消息成功存到本地数据库的回调
                                 }
-
                                 @Override
                                 public void onSuccess(Message message) {
-                                    //消息通过网络发送成功的回调
-                                    Log.i(TAG, "onSuccess: 消息通过网络发送成功的回调");
+                                    // 消息发送成功的回调
+                                    Log.i(TAG, "onSuccess: 发送状态成功");
                                 }
 
                                 @Override
                                 public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-                                    //消息发送失败的回调
-                                    Log.i(TAG, "onError: 消息发送失败的回调");
+                                    // 消息发送失败的回调
                                 }
                             });
+                            Intent intent = new Intent(UIUtil.getContext(), SpeechActivity.class);
+                            intent.putExtra("chatRoomId",chatRoomId);
+                            startActivity(intent);
                         }
 
                         @Override

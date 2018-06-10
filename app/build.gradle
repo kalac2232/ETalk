@@ -38,4 +38,6 @@ dependencies {
     implementation files('libs/json-lib-2.1-jdk15.jar')
     implementation project(':IMKit')
     implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
+    implementation 'pub.devrel:easypermissions:1.2.0'
+    compile 'com.lqr.audio:library:1.0.0'
 }

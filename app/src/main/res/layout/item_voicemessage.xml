@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/iv_speech_chat_headicon"
+        android:layout_margin="7dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@drawable/ic_headicon_default"/>
+    <ImageView
+        android:id="@+id/iv_voice"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:orientation="vertical"
+        android:src="@drawable/ic_voice_bubble"
+        >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/id_recorder_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:layout_gravity="center"
+        android:text="11"
+        />
+    <TextView
+        android:paddingBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:layout_gravity="center"
+        android:text="''"
+        />
+</LinearLayout>

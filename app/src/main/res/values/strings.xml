@@ -11,5 +11,9 @@
     <string name="string_treatment">治疗</string>
     <string name="string_train">训练</string>
     <string name="string_my">我的</string>
+    <string name="voice_rec">手指上滑，取消发送</string>
+    <string name="voice_cancel">松开手指，取消发送</string>
+    <string name="voice_short">录音时间太短</string>
+    <string name="voice_failure">录音失败！</string>
 
 </resources>
